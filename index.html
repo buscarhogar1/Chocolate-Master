@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chocolate Master – Las Batallas del Chocolate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --choco-dark:   #1E0C04;
+    --choco-deep:   #3A1508;
+    --choco-mid:    #6B3319;
+    --choco-milk:   #9B5E35;
+    --caramel:      #C48A3F;
+    --gold:         #D4A843;
+    --gold-light:   #E8C96A;
+    --cream:        #F5E8CC;
+    --cream-light:  #FBF4E8;
+    --white-choco:  #FFF8EE;
+
+    /* Casa colors */
+    --blanco:       #F5E8CC;
+    --puro:         #1E0C04;
+    --leche:        #9B5E35;
+    --almendra:     #7A5C2E;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream-light);
+    color: var(--choco-dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── UTILITIES ─────────────────────────────────── */
+  .serif { font-family: 'Playfair Display', serif; }
+  .gold  { color: var(--gold); }
+
+  /* ─── NAV ────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(30, 12, 4, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(212, 168, 67, 0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    color: var(--cream); font-size: 0.85rem; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase;
+    opacity: 0.8; transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold-light); }
+  .nav-cta {
+    background: var(--gold); color: var(--choco-dark);
+    padding: 0.55rem 1.4rem; border-radius: 2px;
+    font-weight: 600; font-size: 0.82rem; letter-spacing: 0.07em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ─── HERO ───────────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    background: var(--choco-dark);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--gold) 0px, var(--gold) 1px,
+      transparent 1px, transparent 40px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      var(--gold) 0px, var(--gold) 1px,
+      transparent 1px, transparent 40px
+    );
+  }
+  .hero-eyebrow {
+    color: var(--gold); font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    margin-bottom: 1.5rem; opacity: 0.9;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 900; line-height: 0.9;
+    color: var(--cream);
+    margin-bottom: 0.3em;
+  }
+  .hero-title .highlight {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: var(--caramel);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.03em;
+  }
+  .hero-tagline {
+    max-width: 540px;
+    font-size: 1.05rem; line-height: 1.7;
+    color: rgba(245, 232, 204, 0.75);
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+  .hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--choco-dark);
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    border: none; border-radius: 2px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(212, 168, 67, 0.3);
+  }
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(212, 168, 67, 0.4);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--cream);
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 500;
+    letter-spacing: 0.06em;
+    border: 1px solid rgba(245, 232, 204, 0.3);
+    border-radius: 2px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 900;
+    color: var(--gold); display: block;
+  }
+  .hero-stat .label {
+    font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(245,232,204,0.5);
+    font-weight: 500;
+  }
+
+  /* ─── SCROLL INDICATOR ──────────────────────────── */
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(245,232,204,0.3); font-size: 0.7rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .scroll-hint .arrow {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(212,168,67,0.6), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 0.6; }
+    50% { transform: scaleY(1.3); opacity: 1; }
+  }
+
+  /* ─── SECTIONS SHARED ───────────────────────────── */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--caramel);
+    margin-bottom: 1rem; display: block;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-body {
+    font-size: 1.05rem; line-height: 1.75;
+    color: var(--choco-mid); max-width: 600px;
+    font-weight: 300;
+  }
+
+  /* ─── PITCH / QUÉ ES ────────────────────────────── */
+  #pitch { background: var(--cream-light); }
+  .pitch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+  .pitch-visual {
+    aspect-ratio: 3/4;
+    background: var(--choco-deep);
+    border-radius: 4px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .pitch-visual-inner {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      135deg,
+      rgba(212,168,67,0.03) 0px, rgba(212,168,67,0.03) 2px,
+      transparent 2px, transparent 30px
+    );
+  }
+  .card-placeholder {
+    width: 65%; aspect-ratio: 2/3;
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 6px;
+    background: linear-gradient(160deg, rgba(107,51,25,0.6), rgba(30,12,4,0.9));
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.8rem;
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    position: relative; z-index: 1;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .card-placeholder .card-icon {
+    font-size: 2.5rem;
+  }
+  .card-placeholder .card-label {
+    font-size: 0.65rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--caramel);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .card-placeholder .card-value {
+    font-size: 1.6rem; font-weight: 900;
+  }
+  .card-shadow {
+    position: absolute;
+    width: 55%; aspect-ratio: 2/3;
+    border: 1px solid rgba(212,168,67,0.15);
+    border-radius: 6px;
+    background: rgba(58,21,8,0.5);
+    transform: rotate(-8deg) translateX(15%) translateY(5%);
+  }
+  .card-shadow-2 {
+    position: absolute;
+    width: 55%; aspect-ratio: 2/3;
+    border: 1px solid rgba(212,168,67,0.08);
+    border-radius: 6px;
+    background: rgba(30,12,4,0.4);
+    transform: rotate(6deg) translateX(-10%) translateY(8%);
+  }
+
+  .pitch-content { }
+  .pitch-features {
+    display: flex; flex-direction: column; gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .pitch-feature {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+  }
+  .feature-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    border-radius: 2px;
+    background: var(--choco-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .feature-text h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    margin-bottom: 0.25rem; color: var(--choco-dark);
+  }
+  .feature-text p {
+    font-size: 0.9rem; line-height: 1.6;
+    color: var(--choco-milk); font-weight: 300;
+  }
+
+  /* ─── LAS 4 CASAS ───────────────────────────────── */
+  #casas {
+    background: var(--choco-dark);
+    color: var(--cream);
+  }
+  #casas .section-title { color: var(--cream); }
+  #casas .section-body { color: rgba(245,232,204,0.65); }
+
+  .casas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px;
+    margin-top: 3.5rem;
+    border: 1.5px solid rgba(212,168,67,0.15);
+  }
+  .casa-card {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    cursor: default;
+    transition: transform 0.3s;
+  }
+  .casa-card:hover { transform: translateY(-4px); z-index: 2; }
+  .casa-card + .casa-card { border-left: 1.5px solid rgba(212,168,67,0.1); }
+
+  .casa-blanco {
+    background: linear-gradient(160deg, #3A2A14, #2A1A08);
+  }
+  .casa-puro {
+    background: linear-gradient(160deg, #110804, #1E0C04);
+  }
+  .casa-leche {
+    background: linear-gradient(160deg, #4A2210, #3A1508);
+  }
+  .casa-almendra {
+    background: linear-gradient(160deg, #362010, #2A1408);
+  }
+
+  .casa-badge {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    margin: 0 auto 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    border: 1.5px solid rgba(212,168,67,0.25);
+  }
+  .casa-blanco .casa-badge { background: rgba(255,248,238,0.12); }
+  .casa-puro .casa-badge   { background: rgba(30,12,4,0.6); }
+  .casa-leche .casa-badge  { background: rgba(155,94,53,0.25); }
+  .casa-almendra .casa-badge { background: rgba(122,92,46,0.25); }
+
+  .casa-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.03em;
+  }
+  .casa-desc {
+    font-size: 0.8rem; line-height: 1.6;
+    color: rgba(245,232,204,0.5);
+    font-weight: 300;
+  }
+  .casa-master-badge {
+    display: inline-block;
+    margin-top: 0.8rem;
+    padding: 0.2rem 0.7rem;
+    background: rgba(212,168,67,0.15);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 1px;
+    font-size: 0.65rem; letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ─── CÓMO SE JUEGA ─────────────────────────────── */
+  #como { background: var(--cream-light); }
+  .mechanics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+  .mechanic-card {
+    background: var(--white-choco);
+    border: 1px solid rgba(107,51,25,0.1);
+    padding: 2rem 1.75rem;
+    border-radius: 2px;
+    position: relative;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .mechanic-card:hover {
+    box-shadow: 0 12px 40px rgba(58,21,8,0.1);
+    transform: translateY(-3px);
+  }
+  .mechanic-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; font-weight: 900;
+    color: rgba(107,51,25,0.08);
+    line-height: 1;
+    margin-bottom: 1rem;
+    user-select: none;
+  }
+  .mechanic-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--choco-dark);
+  }
+  .mechanic-body {
+    font-size: 0.88rem; line-height: 1.7;
+    color: var(--choco-milk); font-weight: 300;
+  }
+  .mechanic-tag {
+    display: inline-block; margin-top: 1rem;
+    padding: 0.2rem 0.65rem;
+    background: var(--choco-dark);
+    color: var(--gold);
+    font-size: 0.65rem; letter-spacing: 0.15em;
+    text-transform: uppercase; font-weight: 600;
+    border-radius: 1px;
+  }
+
+  /* ─── SILENCIO ABSOLUTO banner ──────────────────── */
+  .silencio-banner {
+    margin: 4rem 0 0;
+    padding: 2.5rem 3rem;
+    background: var(--choco-dark);
+    border-left: 3px solid var(--gold);
+    display: flex; align-items: center; gap: 2.5rem;
+    border-radius: 2px;
+  }
+  .silencio-icon { font-size: 2.5rem; flex-shrink: 0; }
+  .silencio-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 900;
+    color: var(--cream); margin-bottom: 0.4rem;
+    font-style: italic;
+  }
+  .silencio-content p {
+    font-size: 0.9rem; line-height: 1.6;
+    color: rgba(245,232,204,0.6); font-weight: 300;
+  }
+
+  /* ─── CONTENIDO DEL MAZO ────────────────────────── */
+  #mazo { background: var(--choco-deep); color: var(--cream); }
+  #mazo .section-title { color: var(--cream); }
+  #mazo .section-body { color: rgba(245,232,204,0.6); }
+
+  .mazo-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 4rem; align-items: start;
+    margin-top: 3.5rem;
+  }
+  .mazo-visual {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .mazo-total {
+    text-align: center;
+    padding: 3rem 2rem;
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 2px;
+    background: rgba(0,0,0,0.2);
+  }
+  .mazo-total .big-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem; font-weight: 900;
+    color: var(--gold); line-height: 1;
+    display: block;
+  }
+  .mazo-total .big-label {
+    font-size: 0.75rem; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,232,204,0.4); margin-top: 0.5rem;
+    font-weight: 500;
+  }
+  .casa-breakdown {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+  }
+  .casa-mini {
+    padding: 1rem;
+    border: 1px solid rgba(212,168,67,0.1);
+    border-radius: 2px;
+    background: rgba(0,0,0,0.15);
+    text-align: center;
+  }
+  .casa-mini .cm-name {
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--caramel); font-weight: 600; margin-bottom: 0.25rem;
+  }
+  .casa-mini .cm-count {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900; color: var(--gold-light);
+  }
+  .casa-mini .cm-sub {
+    font-size: 0.7rem; color: rgba(245,232,204,0.4);
+  }
+
+  .mazo-breakdown { display: flex; flex-direction: column; gap: 1px; }
+  .mazo-row {
+    display: flex; align-items: center; gap: 1.5rem;
+    padding: 1.4rem 1.75rem;
+    background: rgba(245,232,204,0.03);
+    border-bottom: 1px solid rgba(245,232,204,0.05);
+    transition: background 0.2s;
+  }
+  .mazo-row:hover { background: rgba(245,232,204,0.06); }
+  .mazo-row:first-child { background: rgba(212,168,67,0.08); }
+  .mazo-row-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: var(--gold); min-width: 3rem;
+    text-align: right;
+  }
+  .mazo-row-info h4 {
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--cream); margin-bottom: 0.2rem;
+  }
+  .mazo-row-info p {
+    font-size: 0.78rem; color: rgba(245,232,204,0.45);
+    font-weight: 300; line-height: 1.4;
+  }
+
+  /* ─── PARA QUIÉN ────────────────────────────────── */
+  #publico { background: var(--cream-light); }
+  .publico-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .publico-card {
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(107,51,25,0.1);
+    background: var(--white-choco);
+    border-radius: 2px;
+    transition: box-shadow 0.25s;
+  }
+  .publico-card:hover { box-shadow: 0 8px 30px rgba(58,21,8,0.08); }
+  .publico-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    margin-bottom: 0.6rem; color: var(--choco-dark);
+  }
+  .publico-card p {
+    font-size: 0.88rem; line-height: 1.7;
+    color: var(--choco-milk); font-weight: 300;
+  }
+  .publico-emoji {
+    font-size: 1.8rem; margin-bottom: 1rem; display: block;
+  }
+
+  /* ─── COMPRA ─────────────────────────────────────── */
+  #compra {
+    background: var(--choco-dark);
+    text-align: center;
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .compra-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(212,168,67,0.08) 0%, transparent 70%);
+  }
+  #compra .section-title { color: var(--cream); position: relative; }
+  .compra-price {
+    position: relative;
+    margin: 2.5rem auto;
+    display: inline-flex; align-items: baseline; gap: 0.5rem;
+  }
+  .price-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-weight: 900; color: var(--gold);
+    line-height: 1;
+  }
+  .price-currency {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700;
+    color: var(--caramel); align-self: flex-start; margin-top: 0.5rem;
+  }
+  .price-note {
+    font-size: 0.8rem; color: rgba(245,232,204,0.4);
+    margin-bottom: 2.5rem; letter-spacing: 0.05em;
+    position: relative;
+  }
+  .compra-includes {
+    display: flex; gap: 2rem; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 3rem; position: relative;
+  }
+  .compra-include-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.85rem; color: rgba(245,232,204,0.6);
+    font-weight: 400;
+  }
+  .compra-include-item::before {
+    content: ''; width: 5px; height: 5px;
+    background: var(--gold); border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .btn-buy {
+    position: relative;
+    background: var(--gold);
+    color: var(--choco-dark);
+    padding: 1.2rem 3.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border: none; border-radius: 2px; cursor: pointer;
+    display: inline-block; text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 0 0 0 rgba(212,168,67,0.4);
+  }
+  .btn-buy:hover {
+    background: var(--gold-light);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px rgba(212,168,67,0.35);
+  }
+  .compra-reassurance {
+    margin-top: 2rem; position: relative;
+    font-size: 0.8rem; color: rgba(245,232,204,0.35);
+    font-weight: 300; letter-spacing: 0.05em;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────── */
+  footer {
+    background: var(--choco-dark);
+    border-top: 1px solid rgba(212,168,67,0.1);
+    padding: 2.5rem;
+    text-align: center;
+    font-size: 0.78rem; color: rgba(245,232,204,0.25);
+    letter-spacing: 0.05em;
+  }
+  footer span { color: var(--gold); opacity: 0.7; }
+
+  /* ─── RESPONSIVE ─────────────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .pitch-grid { grid-template-columns: 1fr; }
+    .pitch-visual { max-height: 340px; }
+    .casas-grid { grid-template-columns: repeat(2, 1fr); }
+    .casa-card + .casa-card { border-left: none; }
+    .casa-card { border-top: 1.5px solid rgba(212,168,67,0.1); }
+    .mechanics-grid { grid-template-columns: 1fr; }
+    .mazo-layout { grid-template-columns: 1fr; }
+    .publico-grid { grid-template-columns: 1fr; }
+    .silencio-banner { flex-direction: column; text-align: center; padding: 2rem; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 4rem 1.25rem; }
+    .hero-stats { gap: 2rem; }
+    .casas-grid { grid-template-columns: 1fr 1fr; }
+    .mazo-layout { gap: 2rem; }
+    .compra-includes { flex-direction: column; align-items: center; gap: 0.75rem; }
+  }
+
+  /* ─── ANIMATIONS ─────────────────────────────────── */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── HIGHLIGHT BAND ─────────────────────────────── */
+  .highlight-band {
+    background: var(--gold);
+    color: var(--choco-dark);
+    text-align: center;
+    padding: 1rem 2rem;
+    font-size: 0.85rem; font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">CHOCOLATE MASTER</a>
+  <ul class="nav-links">
+    <li><a href="#pitch">El Juego</a></li>
+    <li><a href="#casas">Las Casas</a></li>
+    <li><a href="#como">Cómo se juega</a></li>
+    <li><a href="#mazo">El Mazo</a></li>
+  </ul>
+  <a href="#compra" class="nav-cta">Comprar</a>
+</nav>
+
+<!-- HIGHLIGHT BAND -->
+<div class="highlight-band">
+  🍫 Juego de autor · Edición limitada · 53 cartas de puro placer estratégico
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+  <p class="hero-eyebrow">El juego de cartas definitivo</p>
+  <h1 class="hero-title serif">
+    Chocolate<br><span class="highlight">Master</span>
+  </h1>
+  <p class="hero-subtitle">Las Batallas del Chocolate</p>
+  <p class="hero-tagline">
+    Cuatro Casas. Dos parejas. Un único objetivo: fundir 101 onzas antes que nadie.
+    La estrategia, el silencio y el chocolate nunca habían sido tan irresistibles juntos.
+  </p>
+  <div class="hero-cta-group">
+    <a href="#compra" class="btn-primary">Consigue el tuyo</a>
+    <a href="#como" class="btn-secondary">Ver cómo se juega</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="num">4</span>
+      <span class="label">Jugadores</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">53</span>
+      <span class="label">Cartas</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">101</span>
+      <span class="label">Onzas para ganar</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">3</span>
+      <span class="label">Batallas para ser Master</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Descubre</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- PITCH: QUÉ ES -->
+<section id="pitch">
+  <div class="container">
+    <div class="pitch-grid">
+      <div class="pitch-visual">
+        <div class="pitch-visual-inner"></div>
+        <div class="card-shadow-2"></div>
+        <div class="card-shadow"></div>
+        <div class="card-placeholder">
+          <span class="card-icon">🍫</span>
+          <span class="card-value">11</span>
+          <span class="card-label">Guerrero — Casa Puro</span>
+        </div>
+      </div>
+
+      <div class="pitch-content fade-in">
+        <span class="section-label">Qué es</span>
+        <h2 class="section-title">Una guerra de chocolates disfrazada de partida de cartas.</h2>
+        <p class="section-body">
+          Chocolate Master es un juego de cartas para 4 jugadores por parejas donde la estrategia, la intuición y el silencio son tus únicas armas. Las cuatro antiguas Casas del Chocolate llevan siglos enfrentadas. Ahora os toca a vosotros decidir cuál es la suprema.
+        </p>
+        <div class="pitch-features">
+          <div class="pitch-feature">
+            <div class="feature-icon">⚔️</div>
+            <div class="feature-text">
+              <h4>Luchas y Batallas</h4>
+              <p>Cada Batalla tiene 10 Luchas. La primera pareja que llegue a 101 onzas gana la Batalla. Ganad 3 Batallas y seréis eternamente recordados.</p>
+            </div>
+          </div>
+          <div class="pitch-feature">
+            <div class="feature-icon">👁️</div>
+            <div class="feature-text">
+              <h4>El Fundido Inicial</h4>
+              <p>Antes de empezar, los compañeros se intercambian las manos en silencio. Unos segundos de mirada furtiva que lo cambian todo.</p>
+            </div>
+          </div>
+          <div class="pitch-feature">
+            <div class="feature-icon">🏰</div>
+            <div class="feature-text">
+              <h4>La Casa Master</h4>
+              <p>Una Casa domina cada Batalla. Cambia de partida en partida. Ignorarla es un error que pagaréis con vuestros sueños de chocolate.</p>
+            </div>
+          </div>
+          <div class="pitch-feature">
+            <div class="feature-icon">🤫</div>
+            <div class="feature-text">
+              <h4>Regla de Silencio Absoluto</h4>
+              <p>Sin pistas, sin gestos, sin guiños cómplices. Solo la intuición construida durante el Fundido Inicial. La comunicación está prohibida.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAS 4 CASAS -->
+<section id="casas">
+  <div class="container">
+    <span class="section-label" style="color: var(--caramel);">Los contendientes</span>
+    <h2 class="section-title" style="color: var(--cream);">Las cuatro Casas del Chocolate</h2>
+    <p class="section-body">
+      Cada jugador defiende una Casa. Cada Casa tiene sus propios Guerreros y sus propias Onzas. Y cualquiera puede convertirse en la Casa Master que lo domine todo.
+    </p>
+    <div class="casas-grid fade-in">
+      <div class="casa-card casa-blanco">
+        <div class="casa-badge">🤍</div>
+        <div class="casa-name">Casa Blanco</div>
+        <div class="casa-desc">Suave. Delicado. Más peligroso de lo que aparenta. El chocolate que todo el mundo subestima.</div>
+        <span class="casa-master-badge">Puede ser Master</span>
+      </div>
+      <div class="casa-card casa-puro">
+        <div class="casa-badge">🖤</div>
+        <div class="casa-name">Casa Puro</div>
+        <div class="casa-desc">Intenso. Sin concesiones. El favorito de quienes juegan sin piedad. El más difícil de superar cuando es Master.</div>
+        <span class="casa-master-badge">Puede ser Master</span>
+      </div>
+      <div class="casa-card casa-leche">
+        <div class="casa-badge">🤎</div>
+        <div class="casa-name">Casa con Leche</div>
+        <div class="casa-desc">Equilibrado. Versátil. La Casa que se adapta a cualquier estrategia. El más popular. El más traicionero.</div>
+        <span class="casa-master-badge">Puede ser Master</span>
+      </div>
+      <div class="casa-card casa-almendra">
+        <div class="casa-badge">🟤</div>
+        <div class="casa-name">Casa con Almendra</div>
+        <div class="casa-desc">Robusto. Con textura. Reservado para quienes aprecian la complejidad. La Casa con más carácter.</div>
+        <span class="casa-master-badge">Puede ser Master</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO SE JUEGA -->
+<section id="como">
+  <div class="container">
+    <span class="section-label">Mecánica</span>
+    <h2 class="section-title">Cómo se funden las onzas</h2>
+    <p class="section-body">No es azar. Es estrategia con sabor a chocolate. Cada decisión importa, cada carta jugada cuenta.</p>
+
+    <div class="mechanics-grid fade-in">
+      <div class="mechanic-card">
+        <div class="mechanic-num">01</div>
+        <div class="mechanic-title">El Fundido Inicial</div>
+        <div class="mechanic-body">
+          Antes de cada Batalla, los compañeros intercambian sus 6 cartas durante unos segundos. Ven todo. No dicen nada. Las devuelven. Ese breve vistazo es vuestro único canal de comunicación durante toda la Batalla.
+        </div>
+        <span class="mechanic-tag">Inicio de Batalla</span>
+      </div>
+      <div class="mechanic-card">
+        <div class="mechanic-num">02</div>
+        <div class="mechanic-title">Luchas y Casa Master</div>
+        <div class="mechanic-body">
+          Cada Lucha se gana con la carta más alta de la Casa iniciada... salvo que alguien juegue Casa Master. Si entra la Casa dominante, gana su carta más alta. Hay que saber cuándo trumpear y cuándo guardarse el as.
+        </div>
+        <span class="mechanic-tag">Mecánica central</span>
+      </div>
+      <div class="mechanic-card">
+        <div class="mechanic-num">03</div>
+        <div class="mechanic-title">Pareja de Tabletas</div>
+        <div class="mechanic-body">
+          Guerrero 4 + Guerrero 2 de la misma Casa = combinación especial. Anúnciala al inicio de una Lucha (solo si tu pareja ganó la anterior) y fundís 20 onzas de golpe. En Casa Master, 40 onzas. Un giro de partida.
+        </div>
+        <span class="mechanic-tag">Combo especial</span>
+      </div>
+      <div class="mechanic-card">
+        <div class="mechanic-num">04</div>
+        <div class="mechanic-title">Fase Abierta vs. Fase Final</div>
+        <div class="mechanic-body">
+          Con cartas en la Reserva: libertad de juego, robáis tras cada Lucha. Sin Reserva: obligatorio seguir Casa si tenéis, "fundir" con Casa Master si no. Las últimas 6 Luchas son las más brutales.
+        </div>
+        <span class="mechanic-tag">Dos fases</span>
+      </div>
+      <div class="mechanic-card">
+        <div class="mechanic-num">05</div>
+        <div class="mechanic-title">101 Onzas para ganar</div>
+        <div class="mechanic-body">
+          Los Guerreros suman sus puntos. La última Lucha regala 10 onzas extra. Las Parejas de Tabletas meten 20 o 40. Si nadie llega a 101, se juega una Batalla Decisiva donde cualquier Lucha puede ser la última.
+        </div>
+        <span class="mechanic-tag">Victoria</span>
+      </div>
+      <div class="mechanic-card">
+        <div class="mechanic-num">06</div>
+        <div class="mechanic-title">Tres Batallas, una corona</div>
+        <div class="mechanic-body">
+          Ganad 3 Batallas y seréis Chocolate Master para siempre. O jugad el Modo Supremo: 5 Batallas para los que no tengan suficiente con tres. Las 9 cartas de Batalla llevan el marcador.
+        </div>
+        <span class="mechanic-tag">Fin de partida</span>
+      </div>
+    </div>
+
+    <div class="silencio-banner fade-in">
+      <div class="silencio-icon">🤫</div>
+      <div class="silencio-content">
+        <h3>Regla de Silencio Absoluto</h3>
+        <p>Prohibido decir qué carta tiene tu compañero, sugerir qué debe jugar, o usar gestos, sonidos o guiños. La única comunicación permitida es la intuición construida en el Fundido Inicial. Los que hablan, pierden. Los que se miran demasiado, también.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENIDO DEL MAZO -->
+<section id="mazo">
+  <div class="container">
+    <span class="section-label" style="color: var(--caramel);">Contenido</span>
+    <h2 class="section-title">El mazo: 53 cartas de poder puro</h2>
+    <p class="section-body">Diseñadas para durar. Pensadas para disfrutar.</p>
+
+    <div class="mazo-layout fade-in">
+      <div class="mazo-visual">
+        <div class="mazo-total">
+          <span class="big-num">53</span>
+          <span class="big-label">cartas en total</span>
+        </div>
+        <div class="casa-breakdown">
+          <div class="casa-mini">
+            <div class="cm-name">Blanco</div>
+            <div class="cm-count">10</div>
+            <div class="cm-sub">cartas</div>
+          </div>
+          <div class="casa-mini">
+            <div class="cm-name">Puro</div>
+            <div class="cm-count">10</div>
+            <div class="cm-sub">cartas</div>
+          </div>
+          <div class="casa-mini">
+            <div class="cm-name">con Leche</div>
+            <div class="cm-count">10</div>
+            <div class="cm-sub">cartas</div>
+          </div>
+          <div class="casa-mini">
+            <div class="cm-name">con Almendra</div>
+            <div class="cm-count">10</div>
+            <div class="cm-sub">cartas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mazo-breakdown">
+        <div class="mazo-row">
+          <div class="mazo-row-num">40</div>
+          <div class="mazo-row-info">
+            <h4>Cartas Principales</h4>
+            <p>10 por cada Casa del Chocolate: 5 Cartas de Onzas (valores 1–5, valen 0 en recuento) y 5 Guerreros (valores 2, 3, 4, 10, 11 — sí, la cascada de chocolate vale 11).</p>
+          </div>
+        </div>
+        <div class="mazo-row">
+          <div class="mazo-row-num">9</div>
+          <div class="mazo-row-info">
+            <h4>Cartas de Batalla</h4>
+            <p>Para llevar el marcador de Batallas ganadas. Imprescindibles en el Modo Supremo (5 Batallas). Nada de papeles y bolígrafos.</p>
+          </div>
+        </div>
+        <div class="mazo-row">
+          <div class="mazo-row-num">4</div>
+          <div class="mazo-row-info">
+            <h4>Cartas de Resumen</h4>
+            <p>Una para cada jugador. Orden de Casas, valores de Guerreros, fases del juego y los recordatorios que salvarán más de una partida.</p>
+          </div>
+        </div>
+        <div class="mazo-row" style="border-bottom: none;">
+          <div class="mazo-row-num" style="color: var(--caramel); font-size: 1.1rem;">+</div>
+          <div class="mazo-row-info">
+            <h4>Modo Chocolate Master Supremo</h4>
+            <p>Variante opcional para partidas largas: la pareja que llegue a 5 Batallas gana. Mismas reglas, más gloria. Para los que nunca tienen suficiente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section id="publico">
+  <div class="container">
+    <span class="section-label">¿Para quién?</span>
+    <h2 class="section-title">Para los que saben que el chocolate es una actitud.</h2>
+    <p class="section-body">Chocolate Master no es para todos. Es para los que juegan para ganar y comen chocolate para celebrarlo.</p>
+
+    <div class="publico-grid fade-in">
+      <div class="publico-card">
+        <span class="publico-emoji">🃏</span>
+        <h3>Jugadores de juegos de cartas</h3>
+        <p>Si disfrutáis del Tute, la Briscola, el Truco o los juegos de bazas, Chocolate Master os resultará inmediatamente familiar y sorprendentemente fresco. La mecánica de Casa Master cambia todo lo que creéis saber.</p>
+      </div>
+      <div class="publico-card">
+        <span class="publico-emoji">👫</span>
+        <h3>Amantes de los juegos en parejas</h3>
+        <p>La dinámica de pareja con Silencio Absoluto y el Fundido Inicial crea momentos que difícilmente encontraréis en otro juego. Comunicación sin palabras, estrategia compartida, victorias que se celebran mirándose.</p>
+      </div>
+      <div class="publico-card">
+        <span class="publico-emoji">🎲</span>
+        <h3>Aficionados a juegos de autor</h3>
+        <p>Una mecánica original, un tema con personalidad y una experiencia diseñada desde el amor por el juego. Sin relleno, sin complicaciones innecesarias. Solo lo esencial, perfectamente equilibrado.</p>
+      </div>
+      <div class="publico-card">
+        <span class="publico-emoji">🍫</span>
+        <h3>Los que saben que toda reunión necesita un juego</h3>
+        <p>Cenas con amigos, sobremesas familiares, tardes de sábado. Chocolate Master entra rápido, engancha de verdad y acaba en "¿una partida más?". Avisados quedáis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPRA -->
+<section id="compra">
+  <div class="compra-bg"></div>
+  <div class="container" style="position: relative;">
+    <span class="section-label" style="color: var(--caramel);">Ya es hora</span>
+    <h2 class="section-title">¿Listo para convertirte en<br><em>Chocolate Master</em>?</h2>
+    <div class="compra-price">
+      <span class="price-currency">€</span>
+      <span class="price-amount">18</span>
+    </div>
+    <p class="price-note">Envío incluido en España · Edición de autor</p>
+    <div class="compra-includes">
+      <div class="compra-include-item">53 cartas de alta calidad</div>
+      <div class="compra-include-item">4 cartas de resumen de reglas</div>
+      <div class="compra-include-item">9 marcadores de Batalla</div>
+      <div class="compra-include-item">Modo Supremo incluido</div>
+    </div>
+    <a href="mailto:chocolatemaster@ejemplo.com?subject=Quiero%20comprar%20Chocolate%20Master" class="btn-buy">
+      Fundir las onzas — Comprar ahora
+    </a>
+    <p class="compra-reassurance">Contacto directo con el autor · Pago por transferencia o Bizum · Envío en 48–72h</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Chocolate Master – Las Batallas del Chocolate · Juego de autor · Todos los derechos reservados</p>
+  <p style="margin-top: 0.5rem;">Diseñado con <span>♥</span> y mucho chocolate</p>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Nav active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 120;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.style.color = '';
+      if (link.getAttribute('href') === '#' + current) {
+        link.style.color = 'var(--gold-light)';
+        link.style.opacity = '1';
+      }
+    });
+  });
+
+  // Smooth parallax tilt on hero cards
+  const pitchVisual = document.querySelector('.pitch-visual');
+  if (pitchVisual) {
+    pitchVisual.addEventListener('mousemove', (e) => {
+      const rect = pitchVisual.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      const card = pitchVisual.querySelector('.card-placeholder');
+      if (card) {
+        card.style.transform = `perspective(800px) rotateY(${x * 12}deg) rotateX(${-y * 8}deg) translateZ(10px)`;
+      }
+    });
+    pitchVisual.addEventListener('mouseleave', () => {
+      const card = pitchVisual.querySelector('.card-placeholder');
+      if (card) {
+        card.style.transform = '';
+        card.style.transition = 'transform 0.5s ease';
+      }
+    });
+  }
+</script>
+</body>
+</html>
